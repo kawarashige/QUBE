@@ -25,7 +25,7 @@ Things you may want to cover:
 
 # アプリケーション名
 
-## Rubic Chat
+## QUBE
 
 # アプリケーション概要
 
