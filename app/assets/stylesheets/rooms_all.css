@@ -24,6 +24,8 @@
   height: 90px;
   border-radius: 20px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   padding: 20px;
 }
@@ -37,6 +39,18 @@
   height: 40px;
   border-radius: 20px;
   display: flex;
+}
+
+.image-file {
+  position: absolute;
+  right: 200px;
+  bottom: 25px;
+}
+
+.movie-file {
+  position: absolute;
+  right: 160px;
+  bottom: 25px;
 }
 
 .side-outline {
@@ -76,6 +90,10 @@
 .icon-outline {
   background-color: #162430;
   width: 100px;
+}
+
+.icon {
+  padding-top: 10px; 
 }
 
 .status {
