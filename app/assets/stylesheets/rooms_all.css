@@ -96,6 +96,12 @@
   padding-top: 10px; 
 }
 
+.chara {
+  font-family: 'Montserrat Subrayada', sans-serif;
+  color: #FFF;
+  font-size: 30px;
+}
+
 .status {
   background-color: #253141;
   height: 100%;
