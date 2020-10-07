@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
-  root 'homes#index'
+
+  root to: 'rooms_all#index'
+  resources :rooms_all, only: :index
+  resources :studies, only: :index
   resources :homes, only: :index
+
 end

@@ -17,6 +17,9 @@ ActiveRecord::Schema.define(version: 2020_10_06_085522) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+ActiveRecord::Schema.define(version: 2020_10_06_054415) do
+
+
   create_table "room_alls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name_all", default: "", null: false
     t.datetime "created_at", precision: 6, null: false

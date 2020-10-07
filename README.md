@@ -310,7 +310,7 @@ Things you may want to cover:
 - has_many :users, through :room_c_users_c
 - has_many :messages_c
 
-## homesテーブル
+## studiesテーブル
 
 | Column    | Type       | Option                         |
 | --------- | ---------- | ------------------------------ |
@@ -323,7 +323,7 @@ Things you may want to cover:
 
 - belongs_to :user_all
 
-## studiesテーブル
+## homesテーブル
 
 | Column   | Type       | Option                         |
 | -------- | ---------- | ------------------------------ |
