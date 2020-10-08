@@ -74,15 +74,15 @@ Things you may want to cover:
 - has_one :study
 - has_many :items
 - has_many :recycles
-- has_many :room_all_users_all
-- has_many :rooms_all, through: room_all_users_all
-- has_many :messages_all
-- has_many :user_a_users_all
-- has_many :users_a, through: user_a_users_all
-- has_many :user_b_users_all
-- has_many :users_b, through: user_b_users_all
-- has_many :user_c_users_all
-- has_many :users_c, through: user_c_users_all
+- has_many :all_room_all_users
+- has_many :all_rooms, through: :all_room_all_users
+- has_many :all_messages
+- has_many :a_user_all_users
+- has_many :a_users, through: :a_user_all_users
+- has_many :b_user_all_users
+- has_many :b_users, through: b_user_all_users
+- has_many :c_user_all_users
+- has_many :c_users, through: c_user_all_users
 
 ## a_user_all_usersテーブル
 
@@ -117,8 +117,8 @@ Things you may want to cover:
 
 ### Association
 
-- belongs_to :user_all
-- belongs_to :user_c
+- belongs_to :all_user
+- belongs_to :c_user
 
 ## a_usersテーブル
 
@@ -142,7 +142,7 @@ Things you may want to cover:
 
 - has_many :b_room_b_users
 - has_many :b_rooms, through :b_room_b_users
-- has_many :messages_b
+- has_many :b_messages
 
 ## c_usersテーブル
 
@@ -166,8 +166,8 @@ Things you may want to cover:
 
 ### Association
 
-- belongs_to :room_all
-- belongs_to :user_all
+- belongs_to :all_room
+- belongs_to :all_user
 
 ## a_messagesテーブル
 
