@@ -1,0 +1,21 @@
+th {
+  font-size: 20px;
+  text-align: center;
+}
+
+td {
+  font-size: 20px;
+  width: 100px;
+  height: 50px;
+  line-height: 20px;
+  text-align: center;
+}
+
+tr {
+  border-left: none;
+}
+
+table,th, td {
+  border: none;
+}
+

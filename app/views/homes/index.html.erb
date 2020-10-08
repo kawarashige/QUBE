@@ -1,21 +1,102 @@
-<div　class='home-outline'>
-<h1>マイページ</h1>
-  <div class='absent'>
-    <p>ログイン出席簿</p>
+<div class='outline'>
+  <div class='home-outline'>
+    <div class='title-outline'>
+      <div class='title-logo-study'>
+        <span class='a1'>R</span><span class='a2'>u</span><span class='a3'>b</span><span class='a4'>i</span><span class='a5'>'</span><span class='a6'>s</span> <span class='a1'>C</span><span class='a2'>h</span><span class='a3'>a</span><span class='a4'>t</span>
+        <p class='room-grade-home'>My Page</p>
+      </div>
+    </div>
+    <div class='mypage'>
+      <div class='profile'>
+        <div class ='mypage-title'>
+          <p>プロフィール</p>
+          <div><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %></div>
+        </div>
+        <div class='profile-nickname'>
+          <div class='text-title'>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+              <div class='nickname'>nickname</div>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+          </div>
+          <div class='text-info'>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+              <div class='nickname'>sample</div>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+          </div>
+        </div>
+        <div class='profile-nickname'>
+          <div class='text-title'>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+              <div class='nickname'>Age</div>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+          </div>
+          <div class='text-info'>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+              <div class='nickname'>22</div>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+          </div>
+        </div>
+        <div class='profile-nickname'>
+          <div class='text-title'>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+              <div class='nickname'>years of experience</div>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+          </div>
+          <div class='text-info'>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+              <div class='nickname'>1</div>
+            <div><%= image_tag("qube.png", size: '10x10' ) %></div>
+          </div>
+        </div>
+      </div>
+        <div class ='mypage-title'>
+          <p>出席簿</p>
+          <div><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %><%= image_tag("qube.png", size: '10x10' ) %></div>
+        </div>
+
+        <div class='calender'>
+        <table>
+          <script type="text/javascript" class="">
+
+            now = new Date();
+            year = now.getYear();
+            if (year < 1900) year += 1900;
+            mon = now.getMonth()+1;
+            day = now.getDate();
+            you = now.getDay();
+            youbi = new Array("<font color='#ff0000'>日</font>", "月", "火", "水", "木", "金", "<font color='#0000ff'>土</font>")
+            today = "　本日の日付 " + year + "年" +mon+ "月" +day+ "日" +"("+youbi[you]+")";
+            document.write(today);
+            document.write("<hr>");
+            fday = new Date(year+"/"+mon+"/1");
+            fyou = fday.getDay();
+            lday = new Array(31,28,31,30,31,30,31,31,30,31,30,31)
+            if((year%4 == 0 && year%100!=0) || (year%400 == 0)){lday[1]++;}
+            document.write("<table border='2'>");
+            document.write("<tr><colspan='7'>"+year+"年"+mon+"月</th></tr>");
+            document.write("<tr>");
+            for( m = 0; m < 7; m++){
+              document.write("<th>"+youbi[m]+"</th>");
+            }
+            document.write("</tr>")
+            for( n = 0; n < 6; n++) {
+              document.write("<tr>");
+              for( m = 0; m < 7; m++) {
+                document.write("<td>");
+                d = (n*7+m+1-fyou);
+                if(d>0 && d<= lday[mon-1]){document.write(d);}
+                else{document.write("&nbsp;");}
+                document.write("</td>");
+              }
+              document.write("</tr>");
+              if(d >= lday[mon-1]) break;
+            }
+            document.write("</table>");
+          
+          </script>
+          </table>
+        </div>
+    </div>
   </div>
-  <div class='profiel'>
-    <p>プロフィール</p>
-  </div>
-  <div class='to-Aclass'>
-    <p>Aclassへ</p>
-  </div>
-  <div class='to-Bclass'>
-    <p>Bclassへ</p>
-  </div>
-  <div class='to-Cclass'>
-    <p>Cclassへ</p>
-  </div>
-    <div class='to-study'>
-    <p>趣味調べへ</p>
-  </div>
+  <%= render "part/icon_all" %>
 </div>
