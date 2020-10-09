@@ -173,7 +173,7 @@ Things you may want to cover:
 
 | Column    | Type       | Option                         |
 | --------- | ---------- | ------------------------------ |
-| a_content | text       | null: false, default: ""       |
+| a_content | text       | null: false                    |
 | a_user    | references | null: false, foreign_key: true |
 | a_room    | references | null: false, foreign_key: true |
 
@@ -271,7 +271,7 @@ Things you may want to cover:
 ### Association
 
 - has_many :all_room_all_users
-- has_many :users, through :all_room_all_users
+- has_many :users, through: :all_room_all_users
 - has_many :all_messages
 
 ## a_roomsテーブル
@@ -314,9 +314,9 @@ Things you may want to cover:
 
 | Column    | Type       | Option                         |
 | --------- | ---------- | ------------------------------ |
-| history   | text       |              default: ""       |
-| celebrity | text       |              default: ""       |
-| info      | text       |              default: ""       |
+| history   | text       |                                |
+| celebrity | text       |                                |
+| info      | text       |                                |
 | all_user  | references | null: false, foreign_key: true |
 
 ### Association
