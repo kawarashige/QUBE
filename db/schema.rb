@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_053317) do
 
   create_table "all_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nickname", default: "", null: false
-    t.integer "age", default: 0, null: false
-    t.integer "experience", default: 0, null: false
+    t.integer "age", null: false
+    t.integer "yers_of_experience", null: false
     t.bigint "all_user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

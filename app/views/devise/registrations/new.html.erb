@@ -1,0 +1,74 @@
+<div class='outline'>
+  <div class='sign-up-outline'>
+    <div class='title-outline'>
+      <div class='title-logo-study'>
+        <span class='a1'>R</span><span class='a2'>u</span><span class='a3'>b</span><span class='a4'>i</span><span class='a5'>'</span><span class='a6'>s</span> <span class='a1'>C</span><span class='a2'>h</span><span class='a3'>a</span><span class='a4'>t</span>
+        <p class='room-grade-home'>Sign Up</p>
+      </div>
+    </div>
+
+      <div class='sign-up'>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+        <div class="error">
+          <%= render "devise/shared/error_messages", resource: resource %>
+        </div>
+
+          <div class="form">
+            <p class="label">email</p>
+            <div class="field">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "sign-up-form"  %>
+            </div>
+          </div>
+          <div class="form">
+            <p class="label">password</p>
+            <div class="field">
+              <%# if @minimum_password_length %>
+              <%# <em>( %>
+                <%#= @minimum_password_length %> 
+                <%# characters minimum)</em> %>
+              <%# <% end %>
+              <%= f.password_field :password, autocomplete: "new-password", class: "sign-up-form"  %>
+            </div>
+          </div>
+
+          <div class="form">
+            <p class="label">password confirmation</p>
+            <div class="field">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "sign-up-form" %>
+            </div>
+          </div>
+
+          <div class="form">
+            <p class="label">nickname</p>
+            <div class="field">
+              <%= f.text_field :nickname, class: "sign-up-form"  %>
+            </div>
+          </div>
+
+          <div class="form">
+            <p class="label">age</p>
+            <div class="field">
+              <%= f.text_field :age, class: "sign-up-form"  %>
+            </div>
+          </div>
+
+          <div class="form">
+            <p class="label">yers of experience</p>
+            <div class="field">
+              <%= f.text_field :yers_of_experience, class: "sign-up-form"  %>
+            </div>
+          </div>
+
+            <div class="actions">
+              <%= f.submit "Sign Up", class: "submit" %>
+            </div>
+
+      <% end %>
+
+      <%#= render "devise/shared/links" %>
+      </div>
+  </div>
+  <%= render "parts/icon_all" %>
+</div>
