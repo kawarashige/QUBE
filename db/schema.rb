@@ -40,8 +40,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_053317) do
   create_table "all_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nickname", default: "", null: false
     t.integer "age", null: false
-    t.integer "yers_of_experience", null: false
-    t.bigint "all_user_id", null: false
+    t.integer "yers_of_experience", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false
@@ -49,7 +48,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_053317) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.index ["all_user_id"], name: "index_all_users_on_all_user_id"
     t.index ["email"], name: "index_all_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_all_users_on_reset_password_token", unique: true
   end
@@ -75,7 +73,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_053317) do
   add_foreign_key "all_messages", "all_users"
   add_foreign_key "all_room_all_users", "all_rooms"
   add_foreign_key "all_room_all_users", "all_users"
-  add_foreign_key "all_users", "all_users"
   add_foreign_key "homes", "all_users"
   add_foreign_key "studies", "all_users"
 end
