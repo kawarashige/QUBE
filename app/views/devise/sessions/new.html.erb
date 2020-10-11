@@ -1,4 +1,13 @@
-
+<%# <!DOCTYPE HTML>
+    <html>
+    <head>
+    <meta charset="UTF8">
+    <script src="three.js"></script>
+    <script src="index.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.min.js"></script>
+    </head>
+    <body> %>
 <div class='outline'>
   <div class='sign-up-outline'>
     <div class='title-outline'>
@@ -14,6 +23,11 @@
 
         <div class="error">
           <%= render "devise/shared/error_messages", resource: resource %>
+        </div>
+        
+        <div class="rubik-cube">
+
+          <canvas id="myCanvas"></canvas>
         </div>
 
           <div class="form">
@@ -52,6 +66,8 @@
   </div>
   <%= render "parts/icon_all" %>
 </div>
+<%# </body>
+</html> %>
 
 
 <%#= render "devise/shared/links" %>

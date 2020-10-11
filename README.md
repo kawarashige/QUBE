@@ -25,14 +25,14 @@ Things you may want to cover:
 
 # アプリケーション名
 
-## QUBE
+## Rubi's Chat
 
 # アプリケーション概要
 
 ## ルービックキューブを趣味として習慣化することができるようになります。
 
 # heroku URL
-## https://qube29821.herokuapp.com/
+
 
 # 目指した課題解決
 
@@ -383,7 +383,6 @@ Things you may want to cover:
 
 # ローカルリポジトリでの動作方法
 
-% git clone https://git.heroku.com/qube29821.git
 
 ruby 2.6.5
 
