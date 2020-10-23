@@ -38,6 +38,12 @@ https://qube29821.herokuapp.com/
 
 ## ルービックキューブを趣味にしたいが、長続きしないという課題をもつ人に向けて共通の趣味を持つ人とのコミュニケーションの場としてこのアプリケーションを提供することでその課題解決を図ります。
 
+# DEMO
+https://gyazo.com/56ce41dab3d84da65545168390a5c4f8
+
+# 工夫した点
+
+
 # 洗い出した要件
 
 | 機能 | 目的 | 詳細 | ストーリー |
@@ -384,5 +390,6 @@ https://qube29821.herokuapp.com/
 # ローカルリポジトリでの動作方法
 
 git clone https://github.com/kawarashige/QUBE
+
 ruby 2.6.5
 
