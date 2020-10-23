@@ -1,990 +1,490 @@
-const { AxesHelper, TangentSpaceNormalMap } = require("./three");
-
-window.addEventListener("DOMContentLoaded", init);
 
 function init() {
-  const width = 960;
-  const height = 540;
-  const renderer = new THREE.WebGLRenderer({
-    canvas: document.querySelector("#myCanvas")
-  });
+  const width = 430;
+  const height = 430;
 
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(width, height);
+  const mouse = new THREE.Vector2();
+  const raycaster = new THREE.Raycaster();
+
 
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(
-    45,
-    width / height,
-    1,
-    10000
-  );
-  camera.position.set(0, 1000, +1000); //cameraを指定しなければ表示されない！
-  camera.lookAt(new THREE.Vector3(0, 0, 0));
-  const controls = new THREE.OrbitControls(camera);
-  
-  
+    45, width / height, 1, 10000);
 
-  const cube1 = new CubeBlue();
+  const renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector("#myCanvas")});
+  
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(new THREE.Color(0xEEEEEE));
+  renderer.setSize(width, height);
+  renderer.shadowMap.enabled = false;
+
+  camera.position.set(-4000, 3000, 0); //cameraを指定しなければ表示されない！
+  camera.lookAt(scene.position);
+
+  const spotLight = new THREE.SpotLight(0xfff);
+  spotLight.position.set(-40, 60, -10);
+  spotLight.castShadow = true;
+  scene.add(spotLight);
+
+  const orbitControls = new THREE.OrbitControls(camera);
+  // orbitControls.update();
+  // orbitControls.addEventListener('change', tick);
+
+  // const transControls = new THREE.TransformControls(camera);
+  // transControls.addEventListener('change', tick);
+
+  document.addEventListener('mousedown', onDocumentMouseDown, false);
+  // documnet.addEventListener('mousemove', ondocumentMouseMove, false);
+
+
+
+  // const groupCube = new THREE.Group();
+  // const cubes = [];
+  // cubes.push(new THREE.MeshBasicMaterial({color: 0xC41E3A}));
+  // cubes.push(new THREE.MeshBasicMaterial({color: 0xff5800}));
+  // cubes.push(new THREE.MeshBasicMaterial({color: 0xffd500}));
+  // cubes.push(new THREE.MeshBasicMaterial({color: 0xffffff}));
+  // cubes.push(new THREE.MeshBasicMaterial({color: 0x0051ba}));
+  // cubes.push(new THREE.MeshBasicMaterial({color: 0x009e60}));
+
+  // const face = new THREE.MultiMaterial(cubes);
+
+  // for (let x = -1; x <= 1; x++) {
+  //   for (let y = -1; y <= 1; y++) {
+  //     for (let z = -1; z <= 1; z++) {
+  //       const geoCube = new THREE.BoxGeometry(90, 90, 90);
+  //       const cube = new THREE.Mesh(geoCube, face)
+
+  //       cube.position.set(
+  //         100 * x,
+  //         100 * y,
+  //         100 * z 
+  //         );
+
+  //       groupCube.add(cube);
+  //     }
+  //   }
+  // }
+
+  // scene.add(groupCube);
+
+
+
+  // const groupCubesWr = new THREE.Group();
+  // const groupCubesWc = new THREE.Group();
+  // const groupCubesWl = new THREE.Group();
+
+  // const groupCubesHf = new THREE.Group();
+  // const groupCubesHc = new THREE.Group();
+  // const groupCubesHb = new THREE.Group();
+
+  // const groupCubesDu = new THREE.Group();
+  // const groupCubesDc = new THREE.Group();
+  // const groupCubesDd = new THREE.Group();
+
+
+  const cube1 = new Cube();
   cube1.position.set(
     -100,
     -100,
-    -100
+    -100 
   );
   scene.add(cube1);
-  
+  // groupCubesWl.add(cube1);
+  // groupCubesHf.add(cube1);
+  // groupCubesDd.add(cube1);
 
-  const cube2 = new CubeGreen();
+
+
+  const cube2 = new Cube();
   cube2.position.set(
     0,
     -100,
     -100
   );
   scene.add(cube2);
+  // groupCubesWc.add(cube2);
+  // groupCubesHf.add(cube2);
+  // groupCubesDd.add(cube2);
 
-  const cube3 = new CubeRed();
+
+  const cube3 = new Cube();
   cube3.position.set(
     100,
     -100,
     -100
   );
   scene.add(cube3);
+  // groupCubesWr.add(cube3);
+  // groupCubesHf.add(cube3);
+  // groupCubesDd.add(cube3);
 
-  const cube4 = new CubeGreen();
+
+  const cube4 = new Cube();
   cube4.position.set(
     -100,
     -100,
     0
   );
   scene.add(cube4);
+  // groupCubesWl.add(cube4);
+  // groupCubesHc.add(cube4);
+  // groupCubesDd.add(cube4);
 
-  const cube5 = new CubeRed();
+
+  const cube5 = new Cube();
   cube5.position.set(
     0,
     -100,
     0
   );
-  scene.add(cube5)
+  scene.add(cube5);
+  // groupCubesWc.add(cube5);
+  // groupCubesHc.add(cube5);
+  // groupCubesDd.add(cube5);
 
-  const cube6 = new CubeBlue();
+
+  const cube6 = new Cube();
   cube6.position.set(
     100,
     -100,
     0
   );
   scene.add(cube6);
+  // groupCubesWr.add(cube6);
+  // groupCubesHc.add(cube6);
+  // groupCubesDd.add(cube6);
 
-  const cube7 = new CubeRed();
+
+  const cube7 = new Cube();
   cube7.position.set(
     -100,
     -100,
     100
   );
   scene.add(cube7);
+  // groupCubesWl.add(cube7);
+  // groupCubesHb.add(cube7);
+  // groupCubesDd.add(cube7);
 
-  const cube8 = new CubeBlue();
+
+  const cube8 = new Cube();
   cube8.position.set(
     0,
     -100,
     100
   );
   scene.add(cube8);
+  // groupCubesWc.add(cube8);
+  // groupCubesHb.add(cube8);
+  // groupCubesDd.add(cube8);
 
-  const cube9 = new CubeGreen();
+
+  const cube9 = new Cube();
   cube9.position.set(
     100,
     -100,
     100
   );
   scene.add(cube9);
+  // groupCubesWr.add(cube9);
+  // groupCubesHb.add(cube9);
+  // groupCubesDd.add(cube9);
 
-  const cube10 = new CubeGreen();
+
+  const cube10 = new Cube();
   cube10.position.set(
     -100,
     0,
     -100
   );
   scene.add(cube10);
-  
+  // groupCubesWl.add(cube10);
+  // groupCubesHf.add(cube10);
+  // groupCubesDc.add(cube10);
 
-  const cube11 = new CubeRed();
+  const cube11 = new Cube();
   cube11.position.set(
     0,
     0,
     -100
   );
   scene.add(cube11);
+  // groupCubesWc.add(cube11);
+  // groupCubesHf.add(cube11);
+  // groupCubesDc.add(cube11);
 
-  const cube12 = new CubeBlue();
+  const cube12 = new Cube();
   cube12.position.set(
     100,
     0,
     -100
   );
   scene.add(cube12);
+  // groupCubesWr.add(cube12);
+  // groupCubesHf.add(cube12);
+  // groupCubesDc.add(cube12);
 
-  const cube13 = new CubeRed();
+  const cube13 = new Cube();
   cube13.position.set(
     -100,
     0,
     0
   );
   scene.add(cube13);
+  // groupCubesWl.add(cube13);
+  // groupCubesHc.add(cube13);
+  // groupCubesDc.add(cube13);
+  
 
-  const cube14 = new CubeBlue();
+  const cube14 = new Cube();
   cube14.position.set(
     0,
     0,
     0
   );
-  scene.add(cube14)
+  scene.add(cube14);
+  // groupCubesWc.add(cube14);
+  // groupCubesHc.add(cube14);
+  // groupCubesDc.add(cube14);
 
-  const cube15 = new CubeGreen();
+  const cube15 = new Cube();
   cube15.position.set(
     100,
     0,
     0
   );
   scene.add(cube15);
+  // groupCubesWr.add(cube15);
+  // groupCubesHc.add(cube15);
+  // groupCubesDc.add(cube15);
 
-  const cube16 = new CubeBlue();
+  const cube16 = new Cube();
   cube16.position.set(
     -100,
     0,
     100
   );
   scene.add(cube16);
+  // groupCubesWl.add(cube16);
+  // groupCubesHb.add(cube16);
+  // groupCubesDc.add(cube16);
 
-  const cube17 = new CubeGreen();
+  const cube17 = new Cube();
   cube17.position.set(
     0,
     0,
     100
   );
   scene.add(cube17);
+  // groupCubesWc.add(cube17);
+  // groupCubesHb.add(cube17);
+  // groupCubesDc.add(cube17);
 
-  const cube18 = new CubeRed();
+  const cube18 = new Cube();
   cube18.position.set(
     100,
     0,
     100
   );
   scene.add(cube18);
+  // groupCubesWr.add(cube18);
+  // groupCubesHb.add(cube18);
+  // groupCubesDc.add(cube18);
 
-  const cube19 = new CubeRed();
+
+  const cube19 = new Cube();
   cube19.position.set(
     -100,
     100,
     -100
   );
   scene.add(cube19);
+  // groupCubesWl.add(cube19);
+  // groupCubesHf.add(cube19);
+  // groupCubesDu.add(cube19);
   
 
-  const cube20 = new CubeBlue();
+  const cube20 = new Cube();
   cube20.position.set(
     0,
     100,
     -100
   );
   scene.add(cube20);
+  // groupCubesWc.add(cube20);
+  // groupCubesHf.add(cube20);
+  // groupCubesDu.add(cube20);
 
-  const cube21 = new CubeGreen();
+  const cube21 = new Cube();
   cube21.position.set(
     100,
     100,
     -100
   );
   scene.add(cube21);
+  // groupCubesWr.add(cube21);
+  // groupCubesHf.add(cube21);
+  // groupCubesDu.add(cube21);
 
-  const cube22 = new CubeBlue();
+  const cube22 = new Cube();
   cube22.position.set(
     -100,
     100,
     0
   );
   scene.add(cube22);
+  // groupCubesWl.add(cube22);
+  // groupCubesHc.add(cube22);
+  // groupCubesDu.add(cube22);
 
-  const cube23 = new CubeGreen();
+  const cube23 = new Cube();
   cube23.position.set(
     0,
     100,
     0
   );
-  scene.add(cube23)
+  scene.add(cube23);
+  // groupCubesWc.add(cube23);
+  // groupCubesHc.add(cube23);
+  // groupCubesDu.add(cube23);
 
-  const cube24 = new CubeRed();
+  const cube24 = new Cube();
   cube24.position.set(
     100,
     100,
     0
   );
   scene.add(cube24);
+  // groupCubesWr.add(cube24);
+  // groupCubesHc.add(cube24);
+  // groupCubesDu.add(cube24);
 
-  const cube25 = new CubeGreen();
+  const cube25 = new Cube();
   cube25.position.set(
     -100,
     100,
     100
   );
   scene.add(cube25);
+  // groupCubesWl.add(cube25);
+  // groupCubesHb.add(cube25);
+  // groupCubesDu.add(cube25);
 
-  const cube26 = new CubeRed();
+  const cube26 = new Cube();
   cube26.position.set(
     0,
     100,
     100
   );
   scene.add(cube26);
+  // groupCubesWc.add(cube26);
+  // groupCubesHb.add(cube26);
+  // groupCubesDu.add(cube26);
 
-  const cube27 = new CubeBlue();
+  const cube27 = new Cube();
   cube27.position.set(
     100,
     100,
     100
   );
   scene.add(cube27);
+  // groupCubesWr.add(cube27);
+  // groupCubesHb.add(cube27);
+  // groupCubesDu.add(cube27);
 
-  const plane1 = new PlaneOrange();
-  plane1.position.set(
-    -100,
-    -100,
-    -151
-  );
-  scene.add(plane1)
 
-  const plane2 = new PlaneOrange();
-  plane2.position.set(
-    0,
-    -100,
-    -151
-  );
-  scene.add(plane2)
 
-  const plane3 = new PlaneOrange();
-  plane3.position.set(
-    100,
-    -100,
-    -151
-  );
-  scene.add(plane3)
 
-  const plane4 = new PlaneOrange();
-  plane4.position.set(
-    -100,
-    0,
-    -151
-  );
-  scene.add(plane4)
 
-  const plane5 = new PlaneOrange();
-  plane5.position.set(
-    0,
-    0,
-    -151
-  );
-  scene.add(plane5)
+  // scene.add(groupCubesWr);
+  // scene.add(groupCubesWc);
+  // scene.add(groupCubesWl);
 
-  const plane6 = new PlaneOrange();
-  plane6.position.set(
-    100,
-    0,
-    -151
-  );
-  scene.add(plane6)
 
-  const plane7 = new PlaneOrange();
-  plane7.position.set(
-    -100,
-    100,
-    -151
-  );
-  scene.add(plane7)
 
-  const plane8 = new PlaneOrange();
-  plane8.position.set(
-    0,
-    100,
-    -151
-  );
-  scene.add(plane8)
 
-  const plane9 = new PlaneOrange();
-  plane9.position.set(
-    100,
-    100,
-    -151
-  );
-  scene.add(plane9)
 
-  const plane10 = new PlaneBlue();
-  plane10.position.set(
-    -151,
-    -100,
-    -100
-  );
-  plane10.rotation.y = Math.PI/2; 
-  scene.add(plane10)
+  // scene.add(groupCubesHf);
+  // scene.add(groupCubesHc);
+  // scene.add(groupCubesHb);
 
-  const plane11 = new PlaneBlue();
-  plane11.position.set(
-    -151,
-    -100,
-    0
-  );
-  plane11.rotation.y = Math.PI/2; 
-  scene.add(plane11)
 
-  const plane12 = new PlaneBlue();
-  plane12.position.set(
-    -151,
-    -100,
-    100
-  );
-  plane12.rotation.y = Math.PI/2; 
-  scene.add(plane12)
 
-  const plane13 = new PlaneBlue();
-  plane13.position.set(
-    -151,
-    0,
-    -100
-  );
-  plane13.rotation.y = Math.PI/2; 
-  scene.add(plane13)
+  
 
-  const plane14 = new PlaneBlue();
-  plane14.position.set(
-    -151,
-    0,
-    0
-  );
-  plane14.rotation.y = Math.PI/2; 
-  scene.add(plane14)
+  // scene.add(groupCubesDu);
+  // scene.add(groupCubesDc);
+  // scene.add(groupCubesDd);
 
-  const plane15 = new PlaneBlue();
-  plane15.position.set(
-    -151,
-    0,
-    100
-  );
-  plane15.rotation.y = Math.PI/2; 
-  scene.add(plane15)
 
-  const plane16 = new PlaneBlue();
-  plane16.position.set(
-    -151,
-    100,
-    -100
-  );
-  plane16.rotation.y = Math.PI/2; 
-  scene.add(plane16)
+  // scene.add(transControls);
+  // transControls.setMode('translate')
 
-  const plane17 = new PlaneBlue();
-  plane17.position.set(
-    -151,
-    100,
-    0
-  );
-  plane17.rotation.y = Math.PI/2; 
-  scene.add(plane17)
+  function onDocumentMouseDown(event) {
+    let vector = new THREE.Vector3(
+      (event.clientX / width) * 2 - 1,
+      -(event.clientY / height) * 2 + 1,
+      0.5
+    );
+    vector = vector.unproject(camera);
 
-  const plane18 = new PlaneBlue();
-  plane18.position.set(
-    -151,
-    100,
-    100
-  );
-  plane18.rotation.y = Math.PI/2; 
-  scene.add(plane18)
 
-  const plane19 = new PlaneYellow();
-  plane19.position.set(
-    -100,
-    151,
-    -100
-  );
-  plane19.rotation.x = Math.PI/2; 
-  scene.add(plane19)
+    const raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+    raycaster.setFromCamera( mouse, camera );
 
-  const plane20 = new PlaneYellow();
-  plane20.position.set(
-    0,
-    151,
-    -100
-  );
-  plane20.rotation.x = Math.PI/2; 
-  scene.add(plane20)
 
-  const plane21 = new PlaneYellow();
-  plane21.position.set(
-    100,
-    151,
-    -100
-  );
-  plane21.rotation.x = Math.PI/2; 
-  scene.add(plane21)
+    mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
 
-  const plane22 = new PlaneYellow();
-  plane22.position.set(
-    -100,
-    151,
-    0
-  );
-  plane22.rotation.x = Math.PI/2; 
-  scene.add(plane22)
+    const intersects = raycaster.intersectObjects([cube1, cube2, cube3, cube4, cube5, cube6, cube7, cube8, cube9, cube10,
+    cube11, cube12, cube13, cube14, cube15, cube16, cube17, cube18, cube19, cube20, cube21, cube22, cube23, cube24, cube25, cube26, cube27]);
 
-  const plane23 = new PlaneYellow();
-  plane23.position.set(
-    0,
-    151,
-    0
-  );
-  plane23.rotation.x = Math.PI/2; 
-  scene.add(plane23)
+    if (intersects.length > 0) {
 
-  const plane24 = new PlaneYellow();
-  plane24.position.set(
-    100,
-    151,
-    0
-  );
-  plane24.rotation.x = Math.PI/2; 
-  scene.add(plane24)
+      console.log(intersects[0]);
+      intersects[0].object.material.transparent = true;
+      intersects[0].object.material.opacity = 0.1;
+    }
+  }
 
-  const plane25 = new PlaneYellow();
-  plane25.position.set(
-    -100,
-    151,
-    100
-  );
-  plane25.rotation.x = Math.PI/2; 
-  scene.add(plane25)
+  render();
 
-  const plane26 = new PlaneYellow();
-  plane26.position.set(
-    0,
-    151,
-    100
-  );
-  plane26.rotation.x = Math.PI/2; 
-  scene.add(plane26)
 
-  const plane27 = new PlaneYellow();
-  plane27.position.set(
-    100,
-    151,
-    100
-  );
-  plane27.rotation.x = Math.PI/2; 
-  scene.add(plane27)
-
-  const plane28 = new PlaneRed();
-  plane28.position.set(
-    -100,
-    -100,
-    151
-  );
-  scene.add(plane28)
-
-  const plane29 = new PlaneRed();
-  plane29.position.set(
-    0,
-    -100,
-    151
-  );
-  scene.add(plane29)
-
-  const plane30 = new PlaneRed();
-  plane30.position.set(
-    100,
-    -100,
-    151
-  );
-  scene.add(plane30)
-
-  const plane31 = new PlaneRed();
-  plane31.position.set(
-    -100,
-    0,
-    151
-  );
-  scene.add(plane31)
-
-  const plane32 = new PlaneRed();
-  plane32.position.set(
-    0,
-    0,
-    151
-  );
-  scene.add(plane32)
-
-  const plane33 = new PlaneRed();
-  plane33.position.set(
-    100,
-    0,
-    151
-  );
-  scene.add(plane33)
-
-  const plane34 = new PlaneRed();
-  plane34.position.set(
-    -100,
-    100,
-    151
-  );
-  scene.add(plane34)
-
-  const plane35 = new PlaneRed();
-  plane35.position.set(
-    0,
-    100,
-    151
-  );
-  scene.add(plane35)
-
-  const plane36 = new PlaneRed();
-  plane36.position.set(
-    100,
-    100,
-    151
-  );
-  scene.add(plane36)
-
-  const plane37 = new PlaneGreen();
-  plane37.position.set(
-    151,
-    -100,
-    -100
-  );
-  plane37.rotation.y = Math.PI/2; 
-  scene.add(plane37)
-
-  const plane38 = new PlaneGreen();
-  plane38.position.set(
-    151,
-    -100,
-    0
-  );
-  plane38.rotation.y = Math.PI/2; 
-  scene.add(plane38)
-
-  const plane39 = new PlaneGreen();
-  plane39.position.set(
-    151,
-    -100,
-    100
-  );
-  plane39.rotation.y = Math.PI/2; 
-  scene.add(plane39)
-
-  const plane40 = new PlaneGreen();
-  plane40.position.set(
-    151,
-    0,
-    -100
-  );
-  plane40.rotation.y = Math.PI/2; 
-  scene.add(plane40)
-
-  const plane41 = new PlaneGreen();
-  plane41.position.set(
-    151,
-    0,
-    0
-  );
-  plane41.rotation.y = Math.PI/2; 
-  scene.add(plane41)
-
-  const plane42 = new PlaneGreen();
-  plane42.position.set(
-    151,
-    0,
-    100
-  );
-  plane42.rotation.y = Math.PI/2; 
-  scene.add(plane42)
-
-  const plane43 = new PlaneGreen();
-  plane43.position.set(
-    151,
-    100,
-    -100
-  );
-  plane43.rotation.y = Math.PI/2; 
-  scene.add(plane43)
-
-  const plane44 = new PlaneGreen();
-  plane44.position.set(
-    151,
-    100,
-    0
-  );
-  plane44.rotation.y = Math.PI/2; 
-  scene.add(plane44)
-
-  const plane45 = new PlaneGreen();
-  plane45.position.set(
-    151,
-    100,
-    100
-  );
-  plane45.rotation.y = Math.PI/2; 
-  scene.add(plane45)
-
-  const plane46 = new PlaneWhite();
-  plane46.position.set(
-    -100,
-    -151,
-    -100
-  );
-  plane46.rotation.x = Math.PI/2; 
-  scene.add(plane46)
-
-  const plane47 = new PlaneWhite();
-  plane47.position.set(
-    0,
-    -151,
-    -100
-  );
-  plane47.rotation.x = Math.PI/2; 
-  scene.add(plane47)
-
-  const plane48 = new PlaneWhite();
-  plane48.position.set(
-    100,
-    -151,
-    -100
-  );
-  plane48.rotation.x = Math.PI/2; 
-  scene.add(plane48)
-
-  const plane49 = new PlaneWhite();
-  plane49.position.set(
-    -100,
-    -151,
-    0
-  );
-  plane49.rotation.x = Math.PI/2; 
-  scene.add(plane49)
-
-  const plane50 = new PlaneWhite();
-  plane50.position.set(
-    0,
-    -151,
-    0
-  );
-  plane50.rotation.x = Math.PI/2; 
-  scene.add(plane50)
-
-  const plane51 = new PlaneWhite();
-  plane51.position.set(
-    100,
-    -151,
-    0
-  );
-  plane51.rotation.x = Math.PI/2; 
-  scene.add(plane51)
-
-  const plane52 = new PlaneWhite();
-  plane52.position.set(
-    -100,
-    -151,
-    100
-  );
-  plane52.rotation.x = Math.PI/2; 
-  scene.add(plane52)
-
-  const plane53 = new PlaneWhite();
-  plane53.position.set(
-    0,
-    -151,
-    100
-  );
-  plane53.rotation.x = Math.PI/2; 
-  scene.add(plane53)
-
-  const plane54 = new PlaneWhite();
-  plane54.position.set(
-    100,
-    -151,
-    100
-  );
-  plane54.rotation.x = Math.PI/2; 
-  scene.add(plane54)
-
-  const light = new THREE.AmbientLight(0xFFFFFF, 1.0);
-  scene.add(light);
-
-  tick();
-
-  function tick(){
-
-    requestAnimationFrame(tick);
-    // cube1.rotation.x += 0.005;
-    // cube1.rotation.y += 0.005;
-    // cube2.rotation.x += 0.005;
-    // cube2.rotation.y += 0.005;
-    // cube3.rotation.x += 0.005;
-    // cube3.rotation.y += 0.005;
-    // cube4.rotation.x += 0.005;
-    // cube4.rotation.y += 0.005;
-    // cube5.rotation.x += 0.005;
-    // cube5.rotation.y += 0.005;
-    // cube6.rotation.x += 0.005;
-    // cube6.rotation.y += 0.005;
-    // cube7.rotation.x += 0.005;
-    // cube7.rotation.y += 0.005;
-    // cube8.rotation.x += 0.005;
-    // cube8.rotation.y += 0.005;
-    // cube9.rotation.x += 0.005;
-    // cube9.rotation.y += 0.005;
-    // cube10.rotation.x += 0.005;
-    // cube10.rotation.y += 0.005;
-    // cube11.rotation.x += 0.005;
-    // cube11.rotation.y += 0.005;
-    // cube12.rotation.x += 0.005;
-    // cube12.rotation.y += 0.005;
-    // cube13.rotation.x += 0.005;
-    // cube13.rotation.y += 0.005;
-    // cube14.rotation.x += 0.005;
-    // cube14.rotation.y += 0.005;
-    // cube15.rotation.x += 0.005;
-    // cube15.rotation.y += 0.005;
-    // cube16.rotation.x += 0.005;
-    // cube16.rotation.y += 0.005;
-    // cube17.rotation.x += 0.005;
-    // cube17.rotation.y += 0.005;
-    // cube18.rotation.x += 0.005;
-    // cube18.rotation.y += 0.005;
-    // cube19.rotation.x += 0.005;
-    // cube19.rotation.y += 0.005;
-    // cube20.rotation.x += 0.005;
-    // cube20.rotation.y += 0.005;
-    // cube21.rotation.x += 0.005;
-    // cube21.rotation.y += 0.005;
-    // cube22.rotation.x += 0.005;
-    // cube22.rotation.y += 0.005;
-    // cube23.rotation.x += 0.005;
-    // cube23.rotation.y += 0.005;
-    // cube24.rotation.x += 0.005;
-    // cube24.rotation.y += 0.005;
-    // cube25.rotation.x += 0.005;
-    // cube25.rotation.y += 0.005;
-    // cube26.rotation.x += 0.005;
-    // cube26.rotation.y += 0.005;
-    // cube27.rotation.x += 0.005;
-    // cube27.rotation.y += 0.005;
-    // plane1.rotation.x += 0.005;
-    // plane1.rotation.y += 0.005;
-    // plane2.rotation.x += 0.005;
-    // plane2.rotation.y += 0.005;
-    // plane3.rotation.x += 0.005;
-    // plane3.rotation.y += 0.005;
-    // plane4.rotation.x += 0.005;
-    // plane4.rotation.y += 0.005;
-    // plane5.rotation.x += 0.005;
-    // plane5.rotation.y += 0.005;
-    // plane6.rotation.x += 0.005;
-    // plane6.rotation.y += 0.005;
-    // plane7.rotation.x += 0.005;
-    // plane7.rotation.y += 0.005;
-    // plane8.rotation.x += 0.005;
-    // plane8.rotation.y += 0.005;
-    // plane9.rotation.x += 0.005;
-    // plane9.rotation.y += 0.005;
-    // plane10.rotation.x += 0.005;
-    // plane10.rotation.y += 0.005;
-    // plane11.rotation.x += 0.005;
-    // plane11.rotation.y += 0.005;
-    // plane12.rotation.x += 0.005;
-    // plane12.rotation.y += 0.005;
-    // plane13.rotation.x += 0.005;
-    // plane13.rotation.y += 0.005;
-    // plane14.rotation.x += 0.005;
-    // plane14.rotation.y += 0.005;
-    // plane15.rotation.x += 0.005;
-    // plane15.rotation.y += 0.005;
-    // plane16.rotation.x += 0.005;
-    // plane16.rotation.y += 0.005;
-    // plane17.rotation.x += 0.005;
-    // plane17.rotation.y += 0.005;
-    // plane18.rotation.x += 0.005;
-    // plane18.rotation.y += 0.005;
-    // plane19.rotation.x += 0.005;
-    // plane19.rotation.y += 0.005;
-    // plane20.rotation.x += 0.005;
-    // plane20.rotation.y += 0.005;
-    // plane21.rotation.x += 0.005;
-    // plane21.rotation.y += 0.005;
-    // plane22.rotation.x += 0.005;
-    // plane22.rotation.y += 0.005;
-    // plane23.rotation.x += 0.005;
-    // plane23.rotation.y += 0.005;
-    // plane24.rotation.x += 0.005;
-    // plane24.rotation.y += 0.005;
-    // plane25.rotation.x += 0.005;
-    // plane25.rotation.y += 0.005;
-    // plane26.rotation.x += 0.005;
-    // plane26.rotation.y += 0.005;
-    // plane27.rotation.x += 0.005;
-    // plane27.rotation.y += 0.005;
-    // plane28.rotation.x += 0.005;
-    // plane28.rotation.y += 0.005;
-    // plane29.rotation.x += 0.005;
-    // plane29.rotation.y += 0.005;
-    // plane30.rotation.x += 0.005;
-    // plane30.rotation.y += 0.005;
-    // plane31.rotation.x += 0.005;
-    // plane31.rotation.y += 0.005;
-    // plane32.rotation.x += 0.005;
-    // plane32.rotation.y += 0.005;
-    // plane33.rotation.x += 0.005;
-    // plane33.rotation.y += 0.005;
-    // plane34.rotation.x += 0.005;
-    // plane34.rotation.y += 0.005;
-    // plane35.rotation.x += 0.005;
-    // plane35.rotation.y += 0.005;
-    // plane36.rotation.x += 0.005;
-    // plane36.rotation.y += 0.005;
-    // plane37.rotation.x += 0.005;
-    // plane37.rotation.y += 0.005;
-    // plane38.rotation.x += 0.005;
-    // plane38.rotation.y += 0.005;
-    // plane39.rotation.x += 0.005;
-    // plane39.rotation.y += 0.005;
-    // plane40.rotation.x += 0.005;
-    // plane40.rotation.y += 0.005;
-    // plane41.rotation.x += 0.005;
-    // plane41.rotation.y += 0.005;
-    // plane42.rotation.x += 0.005;
-    // plane42.rotation.y += 0.005;
-    // plane43.rotation.x += 0.005;
-    // plane43.rotation.y += 0.005;
-    // plane44.rotation.x += 0.005;
-    // plane44.rotation.y += 0.005;
-    // plane45.rotation.x += 0.005;
-    // plane45.rotation.y += 0.005;
-    // plane46.rotation.x += 0.005;
-    // plane46.rotation.y += 0.005;
-    // plane47.rotation.x += 0.005;
-    // plane47.rotation.y += 0.005;
-    // plane48.rotation.x += 0.005;
-    // plane48.rotation.y += 0.005;
-    // plane49.rotation.x += 0.005;
-    // plane49.rotation.y += 0.005;
-    // plane50.rotation.x += 0.005;
-    // plane50.rotation.y += 0.005;
-    // plane51.rotation.x += 0.005;
-    // plane51.rotation.y += 0.005;
-    // plane52.rotation.x += 0.005;
-    // plane52.rotation.y += 0.005;
-    // plane53.rotation.x += 0.005;
-    // plane53.rotation.y += 0.005;
-    // plane54.rotation.x += 0.005;
-    // plane54.rotation.y += 0.005;
+  function render(){
+    // groupCubesDu.rotation.y += 0.005;
+    // groupCubesDc.rotation.y += -0.005;
+    // groupCubesDd.rotation.y += 0.005;
+    requestAnimationFrame(render);
     renderer.render(scene, camera);
+
   }
   
 
 }
+window.onload = init;
 
-class CubeBlue extends THREE.Mesh {
+class Cube extends THREE.Mesh {
   constructor () {
-    const geometry = new THREE.BoxGeometry(100, 100, 100);
-    const material = new THREE.MeshStandardMaterial({
-      color: 0x000000
-    });
-    super(geometry, material);
+    const geometry = new THREE.BoxGeometry(90, 90, 90);
+
+    const cubes = [
+    new THREE.MeshBasicMaterial({color: 0xC41E3A}),
+    new THREE.MeshBasicMaterial({color: 0xff5800}),
+    new THREE.MeshBasicMaterial({color: 0xffd500}),
+    new THREE.MeshBasicMaterial({color: 0xffffff}),
+    new THREE.MeshBasicMaterial({color: 0x0051ba}),
+    new THREE.MeshBasicMaterial({color: 0x009e60}),
+    new THREE.MeshBasicMaterial({color: 0xC41E3A}),
+    new THREE.MeshBasicMaterial({color: 0xff5800}),
+    new THREE.MeshBasicMaterial({color: 0xffd500}),
+    new THREE.MeshBasicMaterial({color: 0xffffff}),
+    new THREE.MeshBasicMaterial({color: 0x0051ba}),
+    new THREE.MeshBasicMaterial({color: 0x009e60})
+  ];
+
+    super(geometry, cubes);
   } 
 }
-
-class CubeGreen extends THREE.Mesh {
-  constructor () {
-    const geometry = new THREE.BoxGeometry(100, 100, 100);
-    const material = new THREE.MeshStandardMaterial({
-      color: 0x000000
-    });
-    super(geometry, material);
-  } 
-}
-
-class CubeRed extends THREE.Mesh {
-  constructor () {
-    const geometry = new THREE.BoxGeometry(100, 100, 100);
-    const material = new THREE.MeshStandardMaterial({
-      color: 0x000000
-    });
-    super(geometry, material);
-  } 
-}
-
-class PlaneRed extends THREE.Mesh {
-  constructor () {
-    const geometry = new THREE.PlaneGeometry(92, 92);
-    const material = new THREE.MeshBasicMaterial({ 
-      color: 0xff0000, side: THREE.DoubleSide 
-    });
-    super(geometry, material);
-  }
-}
-
-class PlaneBlue extends THREE.Mesh {
-  constructor () {
-    const geometry = new THREE.PlaneGeometry(92, 92);
-    const material = new THREE.MeshBasicMaterial({ 
-      color: 0x0000ff, side: THREE.DoubleSide 
-    });
-    super(geometry, material);
-  }
-}
-
-class PlaneYellow extends THREE.Mesh {
-  constructor () {
-    const geometry = new THREE.PlaneGeometry(92, 92);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0xffff00, side: THREE.DoubleSide
-    });
-    super(geometry, material);
-  }
-}
-
-class PlaneOrange extends THREE.Mesh {
-  constructor () {
-    const geometry = new THREE.PlaneGeometry(92, 92);
-    const material = new THREE.MeshBasicMaterial({ 
-      color: 0xfd7e00, side: THREE.DoubleSide 
-    });
-    super(geometry, material);
-  }
-}
-
-class PlaneGreen extends THREE.Mesh {
-  constructor () {
-    const geometry = new THREE.PlaneGeometry(92, 92);
-    const material = new THREE.MeshBasicMaterial({ 
-      color: 0x00ff00, side: THREE.DoubleSide 
-    });
-    super(geometry, material);
-  }
-}
-
-class PlaneWhite extends THREE.Mesh {
-  constructor () {
-    const geometry = new THREE.PlaneGeometry(92, 92);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0xffffff, side: THREE.DoubleSide
-    });
-    super(geometry, material);
-  }
-}
-
-// class PlaneBlue extends THREE.Mesh {
-//   constructor () {
-//     const geometry = new THREE.BoxGeometry(0, 100, 100);
-//     const material = new THREE.MeshStandardMaterial({
-//       color: 0xffffff
-//     });
-//     super(geometry, material);
-//   } 
-// }
