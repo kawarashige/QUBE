@@ -1,2 +1,0 @@
-class RoomAll < ApplicationRecord
-end

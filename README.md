@@ -25,14 +25,14 @@ Things you may want to cover:
 
 # アプリケーション名
 
-## QUBE
+## Rubi's Chat
 
 # アプリケーション概要
 
 ## ルービックキューブを趣味として習慣化することができるようになります。
 
 # heroku URL
-## https://qube29821.herokuapp.com/
+
 
 # 目指した課題解決
 
@@ -58,15 +58,15 @@ Things you may want to cover:
 
 # データベース設計
 
-## users_allテーブル
+## all_usersテーブル
 
 | Column      | Type    | Option                   |
 | ----------- | ------- | ------------------------ |
 | nickname    | string  | null: false, default: "" |
 | email       | string  | null: false, default: "" |
 | password    | string  | null: false, default: "" |
-| years_older | integer | null: false              |
-| experience  | integer | null: false              |
+| years_older | integer | null: false, default: 0  |
+| experience  | integer | null: false, default: 0  |
 
 ### Association
 
@@ -74,53 +74,53 @@ Things you may want to cover:
 - has_one :study
 - has_many :items
 - has_many :recycles
-- has_many :room_all_users_all
-- has_many :rooms_all, through: room_all_users_all
-- has_many :messages_all
-- has_many :user_a_users_all
-- has_many :users_a, through: user_a_users_all
-- has_many :user_b_users_all
-- has_many :users_b, through: user_b_users_all
-- has_many :user_c_users_all
-- has_many :users_c, through: user_c_users_all
+- has_many :all_room_all_users
+- has_many :all_rooms, through: :all_room_all_users
+- has_many :all_messages
+- has_many :a_user_all_users
+- has_many :a_users, through: :a_user_all_users
+- has_many :b_user_all_users
+- has_many :b_users, through: b_user_all_users
+- has_many :c_user_all_users
+- has_many :c_users, through: c_user_all_users
 
-## user_a_users_allテーブル
+## a_user_all_usersテーブル
 
 | Column   | Type       | Option                         |
 | -------- | ---------- | ------------------------------ |
-| user_all | references | null: false, foreign_key: true |
-| user_a   | references | null: false, foreign_key: true |
+| all_user | references | null: false, foreign_key: true |
+| a_user   | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_all
-- belongs_to :user_a
+- belongs_to :all_user
+- belongs_to :a_user
 
-## user_b_users_allテーブル
+## b_user_all_usersテーブル
 
 | Column   | Type       | Option                         |
 | -------- | ---------- | ------------------------------ |
-| user_all | references | null: false, foreign_key: true |
-| user_b   | references | null: false, foreign_key: true |
+| all_user | references | null: false, foreign_key: true |
+| b_user   | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user_all
 - belongs_to :user_b
 
-## user_c_users_allテーブル
+## c_user_all_usersテーブル
 
 | Column   | Type       | Option                         |
 | -------- | ---------- | ------------------------------ |
-| user_all | references | null: false, foreign_key: true |
-| user_c   | references | null: false, foreign_key: true |
+| all_user | references | null: false, foreign_key: true |
+| c_user   | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_all
-- belongs_to :user_c
+- belongs_to :all_user
+- belongs_to :c_user
 
-## user_aテーブル
+## a_usersテーブル
 
 | Column | Type | Option |
 | ------ | ---- | ------ |
@@ -128,23 +128,11 @@ Things you may want to cover:
 
 ### Association
 
-- has_many :room_a_users_a
-- has_many :rooms_a, through :room_a_users_a
-- has_many :messages_a
+- has_many :a_room_a_users
+- has_many :a_rooms, through :a_room_a_users
+- has_many :a_messages
 
-## user_bテーブル
-
-| Column | Type | Option |
-| ------ | ---- | ------ |
-|        |      |        |
-
-### Association
-
-- has_many :room_b_users_b
-- has_many :rooms_b, through :room_b_users_b
-- has_many :messages_b
-
-## user_cテーブル
+## b_usersテーブル
 
 | Column | Type | Option |
 | ------ | ---- | ------ |
@@ -152,186 +140,198 @@ Things you may want to cover:
 
 ### Association
 
-- has_many :room_c_users_c
-- has_many :rooms_c, through :room_c_users_c
-- has_many :messages_c
+- has_many :b_room_b_users
+- has_many :b_rooms, through :b_room_b_users
+- has_many :b_messages
 
-## message_allテーブル
+## c_usersテーブル
+
+| Column | Type | Option |
+| ------ | ---- | ------ |
+|        |      |        |
+
+### Association
+
+- has_many :c_room_c_users
+- has_many :c_rooms, through :c_room_c_users
+- has_many :c_messages
+
+## all_messagesテーブル
 
 | Column      | Type       | Option                         |
 | ----------- | ---------- | ------------------------------ |
-| content_all | text       | null: false, default: ""       |
-| user_all    | references | null: false, foreign_key: true |
-| room_all    | references | null: false, foreign_key: true |
+| all_content | text       | null: false, default: ""       |
+| all_user    | references | null: false, foreign_key: true |
+| all_room    | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :room_all
-- belongs_to :user_all
+- belongs_to :all_room
+- belongs_to :all_user
 
-## message_aテーブル
+## a_messagesテーブル
 
 | Column    | Type       | Option                         |
 | --------- | ---------- | ------------------------------ |
-| content_a | text       | null: false, default: ""       |
-| user_a    | references | null: false, foreign_key: true |
-| room_a    | references | null: false, foreign_key: true |
+| a_content | text       | null: false                    |
+| a_user    | references | null: false, foreign_key: true |
+| a_room    | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :room_a
-- belongs_to :user_a
+- belongs_to :a_room
+- belongs_to :a_user
 
-## message_bテーブル
+## b_messagesテーブル
 
 | Column    | Type       | Option                         |
 | --------- | ---------- | ------------------------------ |
-| content_b | text       | null: false, default: ""       |
-| user_a    | references |              foreign_key: true |
-| user_b    | references | null: false, foreign_key: true |
-| room_b    | references | null: false, foreign_key: true |
+| b_content | text       | null: false, default: ""       |
+| a_user    | references |              foreign_key: true |
+| b_user    | references | null: false, foreign_key: true |
+| b_room    | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :room_b
-- belongs_to :user_a
-- belongs_to :user_b
+- belongs_to :b_room
+- belongs_to :a_user
+- belongs_to :b_user
 
-## message_cテーブル
+## c_messagesテーブル
 
 | Column    | Type       | Option                         |
 | --------- | ---------- | ------------------------------ |
-| content_c | text       | null: false, default: ""       |
-| user_a    | references |              foreign_key: true |
-| user_b    | references |              foreign_key: true |
-| user_c    | references | null: false, foreign_key: true |
-| room_c    | references | null: false, foreign_key: true |
+| c_content | text       | null: false, default: ""       |
+| a_user    | references |              foreign_key: true |
+| b_user    | references |              foreign_key: true |
+| c_user    | references | null: false, foreign_key: true |
+| c_room    | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :room_c
-- belongs_to :user_a
-- belongs_to :user_b
-- belongs_to :user_c
+- belongs_to :c_room
+- belongs_to :a_user
+- belongs_to :b_user
+- belongs_to :c_user
 
-## room_all_users_allテーブル
+## all_room_all_usersテーブル
 
-| Column | Type | Option |
-| ------ | ---- | ------ |
-| user_all | references | null: false, foreign_key: true |
-| room_all | references | null: false, foreign_key: true |
+| Column   | Type       | Option                         |
+| -------- | ---------- | ------------------------------ |
+| all_user | references | null: false, foreign_key: true |
+| all_room | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_all
-- belongs_to :room_all
+- belongs_to :all_user
+- belongs_to :all_room
 
-## room_a_users_aテーブル
+## a_room_a_usersテーブル
 
 | Column | Type       | Option                         |
 | ------ | ---------- | ------------------------------ |
-| user_a | references | null: false, foreign_key: true |
-| room_a | references | null: false, foreign_key: true |
+| a_user | references | null: false, foreign_key: true |
+| a_room | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_a
-- belongs_to :room_a
+- belongs_to :a_user
+- belongs_to :a_room
 
-## room_b_users_bテーブル
+## b_room_b_usersテーブル
 
 | Column | Type       | Option                         |
 | ------ | ---------- | ------------------------------ |
-| user_b | references | null: false, foreign_key: true |
-| room_b | references | null: false, foreign_key: true |
+| b_user | references | null: false, foreign_key: true |
+| b_room | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_b
-- belongs_to :room_b
+- belongs_to :b_user
+- belongs_to :b_room
 
-## room_c_users_cテーブル
+## c_room_c_usersテーブル
 
 | Column | Type       | Option                         |
 | ------ | ---------- | ------------------------------ |
-| user_c | references | null: false, foreign_key: true |
-| room_c | references | null: false, foreign_key: true |
+| c_user | references | null: false, foreign_key: true |
+| c_room | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_c
-- belongs_to :room_c
+- belongs_to :c_user
+- belongs_to :c_room
 
-## room_allテーブル
+## all_roomsテーブル
 
 | Column   | Type   | Option                   |
 | -------- | ------ | ------------------------ |
-| name_all | string | null: false, default: "" |
+| all_name | string | null: false, default: "" |
 
 ### Association
 
-- has_many :room_all_users_all
-- has_many :users, through :room_all_users_all
-- has_many :messages_all
+- has_many :all_room_all_users
+- has_many :users, through: :all_room_all_users
+- has_many :all_messages
 
-## room_aテーブル
+## a_roomsテーブル
 
 | Column | Type   | Option                   |
 | ------ | ------ | ------------------------ |
-| name_a | string | null: false, default: "" |
+| a_name | string | null: false, default: "" |
 
 ### Association
 
-- has_many :room_a_users_a
-- has_many :users, through :room_a_users_a
-- has_many :messages_a
+- has_many :a_room_a_users
+- has_many :users, through :a_room_a_users
+- has_many :a_messages
 
-## room_bテーブル
+## b_roomsテーブル
 
 | Column | Type   | Option                   |
 | ------ | ------ | ------------------------ |
-| name_b | string | null: false, default: "" |
+| b_name | string | null: false, default: "" |
 
 ### Association
 
-- has_many :room_b_users_b
-- has_many :users, through :room_b_users_b
-- has_many :messages_b
+- has_many :b_room_b_users
+- has_many :users, through :b_room_b_users
+- has_many :b_messages
 
-## room_cテーブル
+## c_roomsテーブル
 
 | Column | Type   | Option                   |
 | ------ | ------ | ------------------------ |
-| name_c | string | null: false, default: "" |
+| c_name | string | null: false, default: "" |
 
 ### Association
 
-- has_many :room_c_users_c
-- has_many :users, through :room_c_users_c
-- has_many :messages_c
+- has_many :c_room_c_users
+- has_many :users, through :c_room_c_users
+- has_many :c_messages
 
 ## studiesテーブル
 
 | Column    | Type       | Option                         |
 | --------- | ---------- | ------------------------------ |
-| history   | text       |              default: ""       |
-| celebrity | text       |              default: ""       |
-| info      | text       |              default: ""       |
-| user_all  | references | null: false, foreign_key: true |
+| history   | text       |                                |
+| celebrity | text       |                                |
+| info      | text       |                                |
+| all_user  | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_all
+- belongs_to :all_user
 
 ## homesテーブル
 
 | Column   | Type       | Option                         |
 | -------- | ---------- | ------------------------------ |
-| user_all | references | null: false, foreign_key: true |
+| all_user | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_all
+- belongs_to :all_user
 
 ## itemsテーブル 
 
@@ -342,24 +342,24 @@ Things you may want to cover:
 | item_status_id | integer    | null: false, default: 0        |
 | prefecture_id  | integer    | null: false, default: 0        |
 | schedule_id    | integer    | null: false, default: 0        |
-| user_all       | references | null: false, foreign_key: true |
+| all_user       | references | null: false, foreign_key: true |
 
 
 ### Association
 
-- belongs_to :user_all
+- belongs_to :all_user
 - has_one :recycle
 
 ## recyclesテーブル
 
 | Column   | Type       | Option                         |
 | -------- | ---------- | ------------------------------ |
-| user_all | references | null: false, foreign_key: true |
+| all_user | references | null: false, foreign_key: true |
 | item     | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_all
+- belongs_to :all_user
 - belongs_to :item
 - has_one :address
 
@@ -383,7 +383,6 @@ Things you may want to cover:
 
 # ローカルリポジトリでの動作方法
 
-% git clone https://git.heroku.com/qube29821.git
 
 ruby 2.6.5
 

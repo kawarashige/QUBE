@@ -1,9 +1,9 @@
 <div class='icon-outline'>
   <div class='status'>
       <%= link_to image_tag("qube.png", size: '50x50' ), root_path, class: "icon" %>
-      <%= link_to image_tag("user.png", size: '50x50' ), class: "icon" %>
-      <%= link_to image_tag("login.png", size: '50x50' ), class: "icon" %>
-      <%= link_to image_tag("logout.png", size: '50x50' ), class: "icon" %>
+      <%= link_to image_tag("user.png", size: '50x50' ), new_all_user_registration_path, class: "icon" %>
+      <%= link_to image_tag("login.png", size: '50x50' ), new_all_user_session_path, class: "icon" %>
+      <%= link_to image_tag("logout.png", size: '50x50' ), destroy_all_user_session_path, method: :delete, class: "icon" %>
       <%= link_to image_tag("home.png", size: '50x50' ), homes_path, class: "icon" %>
       <%= link_to image_tag("pen.png", size: '50x50' ), class: "icon" %>
       <%= link_to image_tag("study.png", size: '50x50' ), studies_path, class: "icon" %>
