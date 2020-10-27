@@ -31,7 +31,7 @@ Things you may want to cover:
 
 ## ルービックキューブを趣味として習慣化することができるようになります。
 
-# heroku URL
+# 本番環境
 https://qube29821.herokuapp.com/
 
 # 目指した課題解決
@@ -43,12 +43,19 @@ https://qube29821.herokuapp.com/
 ![ru-cube2](https://user-images.githubusercontent.com/70368456/97253357-8a7f1780-184f-11eb-96f1-8dc404ffa4ef.gif)
 ## 未完成のルービックキューブ
 ![ru-cube4](https://user-images.githubusercontent.com/70368456/97254382-966bd900-1851-11eb-85b3-f6f58afb5fd4.gif)
+## ルービックキューブ試作
 ![ru-cube3](https://user-images.githubusercontent.com/70368456/97254189-2b220700-1851-11eb-8d59-441a4c3a29c3.gif)
-
+![ru-cube7](https://user-images.githubusercontent.com/70368456/97256694-18123580-1857-11eb-986f-64d674c00a93.gif)
 ## 
 
 # 工夫した点
-
+全ユーザー同士の交流の場としてALL Chatといったログイン以前にチャットを行える場を用意した点です.(現在ビューのみです。)
+画面右端に部分テンプレートとして切り出したアイコン一覧を表示することで、画面遷移を行いやすくした点です。
+ルービックキューブの画像をトリミングを行い、背景を削除しサイズを調整することで装飾として用いた点です。
+  ## 課題
+  ページ右端に表示されているアイコンがどのページを示しているかが分かりづらい点です。
+  ## 改善
+  JavaScriptでアイコンにマウスを合わせた際に、ページ名を表示させるように実装を行います。
 
 # 実装した機能
 
