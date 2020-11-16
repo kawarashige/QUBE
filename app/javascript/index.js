@@ -10,22 +10,22 @@ function init() {
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(
-    45, width / height, 1, 10000);
+    75, width / height, 1, 10000);
 
   const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector("#myCanvas")});
   
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setClearColor(new THREE.Color(0xEEEEEE));
+  renderer.setClearColor(new THREE.Color(0x000));
   renderer.setSize(width, height);
   renderer.shadowMap.enabled = false;
 
-  camera.position.set(-4000, 3000, 0); //cameraを指定しなければ表示されない！
+  camera.position.set(700, 500, 1000); //cameraを指定しなければ表示されない！
   camera.lookAt(scene.position);
 
   const spotLight = new THREE.SpotLight(0xfff);
   spotLight.position.set(-40, 60, -10);
-  spotLight.castShadow = true;
+  // spotLight.castShadow = true;
   scene.add(spotLight);
 
   const orbitControls = new THREE.OrbitControls(camera);
@@ -294,7 +294,6 @@ function init() {
   // groupCubesHb.add(cube18);
   // groupCubesDc.add(cube18);
 
-
   const cube19 = new Cube();
   cube19.position.set(
     -100,
@@ -305,7 +304,6 @@ function init() {
   // groupCubesWl.add(cube19);
   // groupCubesHf.add(cube19);
   // groupCubesDu.add(cube19);
-  
 
   const cube20 = new Cube();
   cube20.position.set(
@@ -396,14 +394,9 @@ function init() {
   // groupCubesDu.add(cube27);
 
 
-
-
-
   // scene.add(groupCubesWr);
   // scene.add(groupCubesWc);
   // scene.add(groupCubesWl);
-
-
 
 
 
@@ -412,8 +405,6 @@ function init() {
   // scene.add(groupCubesHb);
 
 
-
-  
 
   // scene.add(groupCubesDu);
   // scene.add(groupCubesDc);
@@ -429,29 +420,29 @@ function init() {
       -(event.clientY / height) * 2 + 1,
       0.5
     );
-    vector = vector.unproject(camera);
+
+    // console.log((event.clientX / width) * 2 - 1,-(event.clientY / height) * 2 + 1)
+    // vector = vector.unproject(camera);
+
+    // const raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+    // raycaster.setFromCamera( mouse, camera );
 
 
-    const raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-    raycaster.setFromCamera( mouse, camera );
+    // mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+    // mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
 
+    // const intersects = raycaster.intersectObjects([cube1, cube2, cube3, cube4, cube5, cube6, cube7, cube8, cube9, cube10,
+    // cube11, cube12, cube13, cube14, cube15, cube16, cube17, cube18, cube19, cube20, cube21, cube22, cube23, cube24, cube25, cube26, cube27]);
 
-    mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+    // if (intersects.length > 0) {
 
-    const intersects = raycaster.intersectObjects([cube1, cube2, cube3, cube4, cube5, cube6, cube7, cube8, cube9, cube10,
-    cube11, cube12, cube13, cube14, cube15, cube16, cube17, cube18, cube19, cube20, cube21, cube22, cube23, cube24, cube25, cube26, cube27]);
-
-    if (intersects.length > 0) {
-
-      console.log(intersects[0]);
-      intersects[0].object.material.transparent = true;
-      intersects[0].object.material.opacity = 0.1;
-    }
+    //   console.log(intersects[0]);
+    //   intersects[0].object.material.transparent = true;
+    //   intersects[0].object.material.opacity = 0.1;
+    // }
   }
 
   render();
-
 
   function render(){
     // groupCubesDu.rotation.y += 0.005;
@@ -461,7 +452,6 @@ function init() {
     renderer.render(scene, camera);
 
   }
-  
 
 }
 window.onload = init;
@@ -488,3 +478,69 @@ class Cube extends THREE.Mesh {
     super(geometry, cubes);
   } 
 }
+
+
+
+
+// onload = function(){
+//   var c = document.getElementById('canvas');
+//   c.width = 300;
+//   c.heught = 300;
+
+//   var gl = c.getContext('canvas') || c.getContext('experimental-webgl');
+
+//   var v_shader = create_shader('vs');
+//   var f_shader = create_shader('fs');
+
+//   var prg = create_program(v_shader, f_shader);
+
+//   var m = matIV();
+//   var mMatrix = m.identity(m.create());
+//   var vMatrix = m.identity(m.create());
+//   var pMatrix = m.identity(m.create());
+//   var tmpMatrix = m.identity(m.create());
+//   var mvpMatrix = m.identity(m.create());
+//   var invMatrix = m.identity(m.create());
+
+//   var cubeData  = cube(2.0);
+//   var cPosition = create_vbo(cubeData.p);
+//   var cColor    = create_vbo(cubeData.c);
+//   var cNormal   = create_vbo(cubeData.n);
+//   var cVBOList  = [cPosition, cColor, cNormal];
+//   set_attribute(cVBOList, aatLocation, attStride);
+//   var cIndex    = create_ibo(cubeData.i);
+
+//   var attLocation = new Array();
+//   attLocation[0] = gl.getAttribLocation();
+//   attLocation[1] = gl.getAttribLocation();
+//   attLocation[2] = gl.getAttribLocation();
+
+//   var uniLocation = new Array();
+//   uniLocation[0] = gl.getUniformLocation();
+//   uniLocation[1] = gl.getUniformLocation();
+//   uniLocation[2] = gl.getUniformLocation();
+  
+
+//   m.lookAt([0.0, 0.0, 10.0], [0, 0, 0], [0, 1, 0], vMatrix);
+//   m.perspective(45, c.width / c.height, 0.1, 100, pMatrix);
+//   m.multiply(pMatrix, vMatrix, tmpMatrix);
+
+//   var count = 0;
+
+//   gl.enable(gl.DEPTH_TEST);
+//   gl.vertexAttribPointer(gl.LEQUAL);
+//   gl.enable(gl.CULL_FACE);
+
+//   (function(){
+//     count++;
+
+//     gl.drawElements();
+//     gl.flush();
+//   })();
+
+//   function create_shader(){}
+//   function create_vbo(){}
+//   function set_attribute(){}
+//   function create_program(){}
+//   function create_ibo(){}
+// };
